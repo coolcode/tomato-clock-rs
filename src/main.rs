@@ -9,19 +9,26 @@ const BREAK_MINUTES: u64 = 5;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    match args.get(1).map(|s| s.as_str()) {
-        Some("-t") => {
-            let minutes = args.get(2).and_then(|s| s.parse().ok()).unwrap_or(WORK_MINUTES);
-            println!("🍅 tomato {} minutes. Ctrl+C to exit", minutes);
-            tomato(minutes, "It is time to take a break");
+    if args.len() == 1 {
+        println!("🍅 tomato {WORK_MINUTES} minutes. Ctrl+C to exit");
+        tomato(WORK_MINUTES, "It is time to take a break");
+        println!("🛀 break {BREAK_MINUTES} minutes. Ctrl+C to exit");
+        tomato(BREAK_MINUTES, "It is time to work");
+    } else {
+        match args.get(1).map(|s| s.as_str()) {
+            Some("-t") => {
+                let minutes = args.get(2).and_then(|s| s.parse().ok()).unwrap_or(WORK_MINUTES);
+                println!("🍅 tomato {minutes} minutes. Ctrl+C to exit");
+                tomato(minutes, "It is time to take a break");
+            }
+            Some("-b") => {
+                let minutes = args.get(2).and_then(|s| s.parse().ok()).unwrap_or(BREAK_MINUTES);
+                println!("🛀 break {minutes} minutes. Ctrl+C to exit");
+                tomato(minutes, "It is time to work");
+            }
+            Some("-h") | None => help(),
+            _ => help(),
         }
-        Some("-b") => {
-            let minutes = args.get(2).and_then(|s| s.parse().ok()).unwrap_or(BREAK_MINUTES);
-            println!("🛀 break {} minutes. Ctrl+C to exit", minutes);
-            tomato(minutes, "It is time to work");
-        }
-        Some("-h") | None => help(),
-        _ => help(),
     }
 }
 
@@ -89,7 +96,7 @@ fn notify_me(msg: &str) {
             .arg(msg)
             .status(),
         "linux" => process::Command::new("notify-send").arg("🍅").arg(msg).status(),
-        _ => todo!(), 
+        _ => todo!(),
     } {
         // skip the notification error
     }
