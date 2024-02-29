@@ -43,39 +43,4 @@ tomato -h      # help
 
 ## Desktop Notification
 
-- MacOS
-
-```sh
-brew install terminal-notifier 
-```
-
-`terminal-notifier` actually is a cross-platform desktop notifier, please refer to ➜ [terminal-notifier](https://github.com/julienXX/terminal-notifier#download)
-
-<img src="https://github.com/coolcode/tomato-clock/blob/master/img/screenshot-macos.png?raw=true" alt="terminal-notifier" width="300"/>
-
-- Ubuntu
-
-`notify-send`
-
-<img src="https://github.com/coolcode/tomato-clock/blob/master/img/screenshot-ubuntu.png?raw=true" alt="ubuntu-notification" width="300"/>
-
-
-## Voice Notifications
-
-Tomato Clock uses `say`(text-to-speech) for voice notifications.
-
-- MacOS
-
-MacOS already has `say`. see [here](https://ss64.com/osx/say.html) or [more detail](https://gist.github.com/mculp/4b95752e25c456d425c6)  
-
-- Ubuntu
-
-See this link: [say](http://manpages.ubuntu.com/manpages/trusty/man1/say.1.html)
-
-```sh
-sudo apt-get install gnustep-gui-runtime
-```
-
-- Windows
-
-Check this one: https://github.com/SeanBracksDev/tomato-clock
+[notify-rust](https://github.com/hoodie/notify-rust)
